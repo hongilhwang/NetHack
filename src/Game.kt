@@ -28,5 +28,6 @@ private fun formatHealthStatus(healthPoints: Int, isBlessed: Boolean): String {
         in 15..74 -> "많이 다친 것 같음."
         else -> "최악의 상태임!"
     }
+
     return healthStatus
 }
