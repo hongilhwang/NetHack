@@ -12,7 +12,11 @@ fun main(args: Array<String>){
     // 플레이어의 상태 출력
     printPlayStatus(auraColor, isBlessed, name, healthStatus)
 
-    castFireball();
+    castFireball()
+
+    performCombat()
+    performCombat("ulrich")
+    performCombat("Hildr", true)
 }
 
 private fun castFireball(numFireballs: Int = 2) =  println("한 덩어리의 파이어볼이 나타난다. (x$numFireballs)")
@@ -45,3 +49,19 @@ private fun formatHealthStatus(healthPoints: Int, isBlessed: Boolean): String = 
         in 15..74 -> "많이 다친 것 같음."
         else -> "최악의 상태임!"
     }
+
+fun performCombat (){
+    println("적군이 없다!");
+}
+
+fun performCombat (enemyName: String){
+    println("적군이 없다!");
+}
+
+fun performCombat (enemyName: String, isBlessed: Boolean){
+    if( isBlessed ){
+        println("$enemyName 과 전투를 시작함. 축복을 받음!");
+    }else{
+        println("$enemyName 과 전투를 시작함.");
+    }
+}
