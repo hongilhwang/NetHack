@@ -1,22 +1,20 @@
 fun main(args: Array<String>){
-    val name = "마드리갈"
-
     var healthPoints = 89
     val isBlessed = true
     val isImmortal = false
+
+    val player = Player()
+    player.castFireball()
 
     // 아우라
     val auraColor = auraColor(isBlessed, healthPoints, isImmortal)
     val healthStatus = formatHealthStatus(healthPoints, isBlessed)
 
     // 플레이어의 상태 출력
-    printPlayStatus(auraColor, isBlessed, name, healthStatus)
+    printPlayStatus(auraColor, isBlessed, player.name, healthStatus)
 
     castFireball()
 
-    performCombat()
-    performCombat("ulrich")
-    performCombat("Hildr", true)
 }
 
 private fun castFireball(numFireballs: Int = 2) =  println("한 덩어리의 파이어볼이 나타난다. (x$numFireballs)")
