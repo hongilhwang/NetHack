@@ -1,3 +1,5 @@
+package com.seravie.nyethack
+
 import java.lang.IllegalStateException
 
 fun main(args: Array<String>){
@@ -8,7 +10,7 @@ fun main(args: Array<String>){
     }
 
     try{
-    proficiencyCheck(swordsJuggling)
+        proficiencyCheck(swordsJuggling)
     swordsJuggling = swordsJuggling!!.plus(1)
 
     }catch(e: Exception){
