@@ -1,17 +1,29 @@
 package com.seravie.nyethack
 
+import java.io.File
+
 class Player(_name: String, var healthPoints: Int = 100,val isBlessed: Boolean, private val isImmortal: Boolean) {
-
-    constructor(name: String) : this(name, isBlessed = true, isImmortal = false){
-        if(name.toLowerCase() == "kar") healthPoints = 40
-    }
-
     var name = _name
-        get() = field.capitalize()
+        get() = "${field.capitalize()} of $hometown"
         set(value){
             field = value.trim()
         }
 
+    val hometown by lazy { selectHometown() }
+
+    init {
+        require(healthPoints > 0, {"healthPoints는 0보다 커야 합니다."})
+        require(name.isNotBlank(), {"플레이어는 이름이 있어야 합니다."})
+    }
+    constructor(name: String) : this(name, isBlessed = true, isImmortal = false){
+        if(name.toLowerCase() == "kar") healthPoints = 40
+    }
+
+    private fun selectHometown():String = File("data/towns.txt")
+        .readText()
+        .split("\r\n")
+        .shuffled()
+        .first()
 
     fun auraColor(): String {
         val auraVisible = isBlessed && healthPoints > 50 || isImmortal

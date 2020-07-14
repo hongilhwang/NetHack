@@ -6,6 +6,10 @@ fun main(args: Array<String>){
     val player = Player("Madrigal")
     player.castFireball()
 
+    var currentRoom:Room = TownSquare()
+    println(currentRoom.description())
+    println(currentRoom.load())
+
 
     // 플레이어의 상태 출력
     printPlayStatus(player)
@@ -25,7 +29,7 @@ private fun printPlayStatus(
     player: Player
 ) {
     println("(Aura: ${player.auraColor()}) (Blessed: ${if (player.isBlessed) "YES" else "NO"})")
-    println("$player.name ${player.formatHealthStatus()}")
+    println("${player.name} ${player.formatHealthStatus()}")
 }
 
 
