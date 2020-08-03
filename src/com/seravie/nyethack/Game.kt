@@ -76,13 +76,20 @@ object Game{
 
         fun processCommand() = when( command.toLowerCase()){
             "move" -> move(argument)
+            "map" -> showMap()
+            "ring" ->  strikeBell()
             "quit" -> throw Exception("게임을 종료합니다.")
             else -> commandNotFound()
         }
 
         private fun commandNotFound() = "적합하지 않은 명령입니다!"
-    }
 
+        private fun showMap(){
+            worldMap.forEach{ println(it.map{ location -> if(location === currentRoom)  "X" else "O"}) }
+        }
+
+        private fun strikeBell() = if(currentRoom is TownSquare) (currentRoom as TownSquare).ringBell() else "주변에 종이 보이지 않습니다."
+    }
 
 }
 
