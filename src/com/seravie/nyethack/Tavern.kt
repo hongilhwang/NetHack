@@ -12,11 +12,11 @@ val menuList = File("data/tavern-menu-items.txt")
     .split("\r\n")
 val patronGold = mutableMapOf<String, Double>()
 
-fun main(args: Array<String>){
+fun main(args: Array<String>) {
 
     (0..9).forEach {
-        val first = patronList.shuffled().first()
-        val last = lastName.shuffled().first()
+        val first = patronList.random()
+        val last = lastName.random()
         val name = "$first $last"
         uniquePatrons += name
 
@@ -25,10 +25,10 @@ fun main(args: Array<String>){
     uniquePatrons.forEach { patronGold[it] = 6.0 }
 
     var orderCount = 0
-    while(orderCount <= 9){
+    while (orderCount <= 9) {
         placeOrder(
-            uniquePatrons.shuffled().first(),
-            menuList.shuffled().first()
+            uniquePatrons.random(),
+            menuList.random()
         )
         orderCount++
     }
@@ -44,23 +44,24 @@ private fun displayPatronBalances() {
     }
 }
 
-fun performPurchase(price: Double, patronName: String){
+fun performPurchase(price: Double, patronName: String) {
     val totalPurse = patronGold.getValue(patronName)
     patronGold[patronName] = totalPurse - price
 }
 
 private fun toDragonSpeak(phrase: String) =
-    phrase.replace(Regex("[aeiou]")){
-        when(it.value){
+    phrase.replace(Regex("[aeiou]")) {
+        when (it.value) {
             "a" -> "4"
             "e" -> "3"
             "i" -> "1"
             "o" -> "0"
             "u" -> "|_|"
             else -> it.value
-        } }
+        }
+    }
 
-private fun placeOrder(patronName:String, menuData: String){
+private fun placeOrder(patronName: String, menuData: String) {
     val indexOfApostrophe = TAVERN_NAME.indexOf('\'')
     val tavernMaster = TAVERN_NAME.substring(0 until indexOfApostrophe)
 
@@ -73,9 +74,9 @@ private fun placeOrder(patronName:String, menuData: String){
 
     performPurchase(price.toDouble(), patronName)
 
-    val phrase = if(name == "Dragon's Breath"){
+    val phrase = if (name == "Dragon's Breath") {
         "$patronName 이 감탄한다: ${toDragonSpeak("와, $name 진짜 좋구나!")}"
-    }else{
+    } else {
         "$patronName 이 말한다: 감사합니다 $name."
     }
 
