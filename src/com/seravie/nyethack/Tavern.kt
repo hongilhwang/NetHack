@@ -12,6 +12,19 @@ val menuList = File("data/tavern-menu-items.txt")
     .split("\r\n")
 val patronGold = mutableMapOf<String, Double>()
 
+
+private fun String.toDragonSpeak(): String = this.replace(Regex("[aeiou]")) {
+    when (it.value) {
+        "a" -> "4"
+        "e" -> "3"
+        "i" -> "1"
+        "o" -> "0"
+        "u" -> "|_|"
+        else -> it.value
+    }
+}
+
+
 fun main(args: Array<String>) {
 
     (0..9).forEach {
@@ -49,17 +62,6 @@ fun performPurchase(price: Double, patronName: String) {
     patronGold[patronName] = totalPurse - price
 }
 
-private fun toDragonSpeak(phrase: String) =
-    phrase.replace(Regex("[aeiou]")) {
-        when (it.value) {
-            "a" -> "4"
-            "e" -> "3"
-            "i" -> "1"
-            "o" -> "0"
-            "u" -> "|_|"
-            else -> it.value
-        }
-    }
 
 private fun placeOrder(patronName: String, menuData: String) {
     val indexOfApostrophe = TAVERN_NAME.indexOf('\'')
@@ -75,7 +77,7 @@ private fun placeOrder(patronName: String, menuData: String) {
     performPurchase(price.toDouble(), patronName)
 
     val phrase = if (name == "Dragon's Breath") {
-        "$patronName 이 감탄한다: ${toDragonSpeak("와, $name 진짜 좋구나!")}"
+        "$patronName 이 감탄한다: ${"와, $name 진짜 좋구나!".toDragonSpeak()}"
     } else {
         "$patronName 이 말한다: 감사합니다 $name."
     }
